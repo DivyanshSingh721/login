@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>divyuiscool 
+  </title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5; /* Light mode background */
+      transition: background-color 0.3s;
+    }
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      background: #ffffff; /* Light mode card background */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #333; /* Light mode text color */
+    }
+    .panda {
+      position: relative;
+      margin-bottom: 20px;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+    .panda .face {
+      background: #000;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      position: relative;
+    }
+    .panda .eye {
+      background: #fff;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      position: absolute;
+      top: 30px; /* Original eye position */
+      transition: transform 0.3s; /* Smooth transition for eye movement */
+    }
+    .panda .eye.left {
+      left: 25px; /* Left eye */
+    }
+    .panda .eye.right {
+      right: 25px; /* Right eye */
+    }
+    .panda .hand {
+      background: #000;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      position: absolute;
+      top: 30px; /* Hands positioned to cover the eyes */
+      transition: transform 0.3s;
+    }
+    .panda .hand.left {
+      left: 5px; /* Left hand position */
+    }
+    .panda .hand.right {
+      right: 5px; /* Right hand position */
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      color: #555; /* Light mode label color */
+      margin-bottom: 5px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      color: #ffffff;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    .login-button:hover {
+      background-color: #0056b3;
+    }
+    /* Show/Hide icon */
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+      color: #555; /* Light mode icon color */
+    }
+    /* Hide hands */
+    .hide-hands .hand {
+      transform: translateY(-15px) scale(1.1); /* Move hands up */
+    }
+    /* Drop eyes down */
+    .hide-hands .eye {
+      transform: translateY(15px); /* Move eyes down */
+    }
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #181818; /* Dark mode background */
+    }
+    .login-container.dark-mode {
+      background: #333; /* Dark mode card background */
+      color: #fff; /* Dark mode text color */
+    }
+    .login-container.dark-mode h2 {
+      color: #fff; /* Dark mode heading color */
+    }
+    .input-group label {
+      color: #ddd; /* Dark mode label color */
+    }
+    .input-group input {
+      border: 1px solid #555; /* Dark mode input border */
+      background: #222; /* Dark mode input background */
+      color: #fff; /* Dark mode input text color */
+    }
+    .input-group input:focus {
+      border-color: #007bff; /* Focus border color */
+    }
+    .toggle-password {
+      color: #ddd; /* Dark mode icon color */
+    }
+    .login-button {
+      background-color: #007bff;
+    }
+    .login-button:hover {
+      background-color: #0056b3;
+    }
+    .dark-mode .login-button:hover {
+      background-color: #004494; /* Dark mode hover color */
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container" id="loginContainer">
+    <h2>Login</h2>
+    <div class="panda" id="panda">
+      <div class="face">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="hand left"></div>
+        <div class="hand right"></div>
+      </div>
+    </div>
+    <form>
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>
+      <button type="submit" class="login-button">Login</button>
+    </form>
+    <button onclick="toggleDarkMode()" style="margin-top: 15px;">Toggle Dark Mode</button>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passwordField = document.getElementById('password');
+      const toggleIcon = document.querySelector('.toggle-password');
+      const panda = document.getElementById('panda');
+
+      // Toggle password visibility
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleIcon.textContent = '🙈'; // Change icon to "hide"
+        panda.classList.add('hide-hands'); // Move hands away from eyes
+      } else {
+        passwordField.type = 'password';
+        toggleIcon.textContent = '👁️'; // Change icon to "show"
+        panda.classList.remove('hide-hands'); // Bring hands back to cover eyes
+      }
+    }
+
+    function toggleDarkMode() {
+      const body = document.body;
+      const loginContainer = document.getElementById('loginContainer');
+      body.classList.toggle('dark-mode');
+      loginContainer.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
